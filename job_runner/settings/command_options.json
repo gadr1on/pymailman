@@ -1,0 +1,29 @@
+{
+    "CONTAINERTAGS" : {
+        "TAGTYPE" : ["SACK","IMTRAYLABEL","TRAY","PALLET",
+                     "CRSLIP","EDDMSLIPS"],
+        "FILETYPE" : ["TEXT","DELIMITED","DBASE"]
+    },
+    "GENERAL" : {
+        "EXECUTIONERRORSENDJOB" : ["Y","N"],
+        "SUPPRESSTASKERRORS" : ["Y","N"],
+        "TASKERRORSENDJOB" : ["Y","N"]
+    },
+    "PERMIT" : {
+        "ACTION" : ["ADD","MODIFY","DELETE"]
+    },
+    "PRESORT" : {
+        "MAILCLASS" : ["FIRST","PERIOD","STANDARD",
+                      "BOUNDPRINTED","PARCELPOST",
+                      "LIBRARYMAIL","MEDIAMAIL",
+                      "PSLIGHTWEIGHT"],
+        "PIECETYPE" : ["LETTER","CARD","FLAT",
+                       "MACHINABLEPARCEL",
+                       "NONMACHINABLEPARCEL",
+                       "PARCEL","MARKETINGPARCEL",
+                       "IRREGULARPARCEL"],
+        "CONTAINERTYPE" : ["TRAY","EMMTRAY","NO2SACK",
+                           "NO3SACK","01VSACK","03VSACK",
+                           "CARTON","PALLET"]
+    }
+}
