@@ -1,4 +1,3 @@
-from xml.sax import SAXNotRecognizedException
 from .exceptions import *
 from . import settings as s
 from .bcc_data_files import *
@@ -6,14 +5,14 @@ from .tools import *
 from .inputmanager import jobrunner_options
 from .menumanager3 import MenuManager
 from os.path import join, isdir, isfile, splitext
-from .toolbox.maildat import nextID
+# from .toolbox.maildat import nextID
 from datetime import datetime as dt
 import re
 
 with open(s.myCommandOptionsPath, "r") as file:
     optionContent = json.load(file)
-_, companyData = dbf_reader(s.companyFile, s.companyDataStart, s.companyCuts, s.companyLength)
-_, permitsData = dbf_reader(s.permitsFile, s.permitDataStart, s.permitCuts, s.permitLength)
+# _, companyData = dbf_reader(s.companyFile, s.companyDataStart, s.companyCuts, s.companyLength)
+# _, permitsData = dbf_reader(s.permitsFile, s.permitDataStart, s.permitCuts, s.permitLength)
 
 
 class JobCode:
@@ -190,7 +189,7 @@ class JobCode:
         self.menuman.show_menu()
         maildatSet = self.menuman.selection.value
         maildatSetCommands = readHistory(join(s.maildatSettingsPath, f"{maildatSet}.mds"))
-        maildatID = nextID()
+        maildatID = "number" # Change TODO
         writeFile(s.lastMaildatIDLogPath, maildatID)
         programTitle(self.menutitle)
         print(f"  JobID = {maildatID}")

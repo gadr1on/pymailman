@@ -4,20 +4,20 @@ from core import *
 import traceback
 from core.menumanager3 import MenuManager
 from core.tools import getFilenameList
-from core.commandhistory import CommandHistory
+# from core.commandhistory import CommandHistory
 
-ch = CommandHistory() 
+# ch = CommandHistory() 
 # READ  PREVIOUS HISTORY  ## TODO
-ch.set_readline_console()
+# ch.set_readline_console()
 
-mm = MenuManager("JOB RUNNER")
+mm = MenuManager("PYMAILMAN")
 jr = JobRunner()
-jr.set_command_history(ch)
+# jr.set_command_history(ch)
 
 done = False
 while not done:
     try:
-        files = getFilenameList(s.myjobsPath, s.jobExt)
+        files = getFilenameList(s.jobsPath, s.jobExt)
         mm.set_menu(files)
         mm.set_commands_name("job_runner")
         mm.sort_list()

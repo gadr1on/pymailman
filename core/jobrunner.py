@@ -7,7 +7,6 @@ from .exceptions import *
 from .tools import *
 from .menumanager3 import MenuManager
 
-
 class CommandLine:
 
     def __init__(self):
@@ -33,7 +32,7 @@ class JobRunner:
     def start(self):
         self.finished = False
         while not self.finished:
-            os.system("cls")
+            os.system(s.clear)
             print(self.selection)
             print(len(self.selection)*"-")
             if self.track:
@@ -51,8 +50,7 @@ class JobRunner:
 
     def set_selection(self, selection):
         self.selection = selection
-        self.jobMainPath = join(s.myjobsPath, f"{selection}{s.jobExt}")
-        # self.jobCopyPath = join(s.myjobsCopyPath, f"{selection}{s.jobExt}")
+        self.jobMainPath = join(s.jobsPath, f"{selection}{s.jobExt}")
         self.content = self.get_commands()
         self.inputLines = self.get_input_lines(self.content)
     

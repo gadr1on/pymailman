@@ -1,4 +1,3 @@
-from audioop import reverse
 from email.mime import base
 import logging, socket, re, json, os, subprocess
 from datetime import datetime as dt
@@ -155,24 +154,7 @@ def isFILE(filePath):
         return filePath
     raise invalidInput
 
-def clearScreen():
-    print("\n"*100)
-    os.system("cls")
-
-def programTitle(title):
-    clearScreen()
-    print(f"{title}\n{len(title)*'-'}")
-
-def zipFile(zipFilename, addFilename):
-    exe7z = r"C:\Program Files\7-Zip\7z.exe"
-    FNULL = open(os.devnull, 'w')
-    _, zipType = splitext(zipFilename)
-    exeCommand = [exe7z, "a", f"-t{zipType[1:]}", zipFilename, addFilename]
-    _ = subprocess.call(exeCommand, stdout=FNULL, stderr=subprocess.STDOUT)
-
 def strContainSpecialChr(string):
     return any([w for w in string if ord(w)>=128 or ord(w)<=31])
 
-def rgbToInt(rgb):
-    colorInt = rgb[0] + (rgb[1] * 256) + (rgb[2] * 256 * 256)
-    return colorInt
+

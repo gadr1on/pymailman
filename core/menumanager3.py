@@ -3,7 +3,6 @@ from . import settings as s
 from .exceptions import *
 from .inputmanager import menu_options, commands
 
-
 class Selection(object):
 
     def __init__(self):
@@ -107,7 +106,7 @@ class MenuManager:
     
     def cls(self):
         print("\n"*100)
-        os.system("cls")
+        os.system(s.clear)
     
     def show_menu(self):
         done = False
@@ -125,13 +124,13 @@ class MenuManager:
                     self.selection.index = index
                     self.selection.input = myInput
                     self.selection.value = self.original[index]
-                    return
-                self.selection.input = myInput
-                menu_options(myInput)
-                if self.commands_name:
-                    commands(myInput, self.commands_name)
-                if self.search:
-                    raise searchKeyword
+                else:
+                    self.selection.input = myInput
+                    menu_options(myInput)
+                    if self.commands_name:
+                        commands(myInput, self.commands_name)
+                    if self.search:
+                        raise searchKeyword
                 return
             except invalidInput:
                 continue
