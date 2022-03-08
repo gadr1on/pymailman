@@ -1,1 +1,0 @@
-start wt --title "JOBSQUEUE" -d .\job_runner cmd /k python jobsqueue.py; split-pane --title "JOB RUNNER" -d .\job_runner cmd /k python main.py

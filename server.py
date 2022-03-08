@@ -1,12 +1,12 @@
 import core.settings as s
-from core.jobmanager import JobManager
+# from core.jobmanager import JobManager
 from pathlib import Path
 import socket, threading, subprocess, os, traceback
 from time import sleep
 from core.tools import *
 
 jobs = []
-jobman = JobManager()
+# jobman = JobManager()
 
 def getAddress():
     with open(s.myPortPath, "r") as f:
@@ -72,7 +72,8 @@ def runJobsInQueue():
                 print("-"*20)
             job = jobs[0].split("\n")
             if job[0] == s.serverCommand[1]:
-                jobman.checkAndMoveToIncoming()
+                # jobman.checkAndMoveToIncoming()
+                pass
             elif job[0] == s.serverCommand[2]:
                 # job[2:] = getGeneral()+job[2:]
                 commands = "\n".join(job[2:])
@@ -97,8 +98,8 @@ def readMessage(conn):
 def start():
     thread1 = threading.Thread(target=runJobsInQueue)
     thread1.start()
-    thread2 = threading.Thread(target=jobman.runJobManager)
-    thread2.start()
+    # thread2 = threading.Thread(target=jobman.runJobManager)
+    # thread2.start()
     
     while True:
         try:
@@ -107,25 +108,24 @@ def start():
             server.listen(20)
             print(f"{now()} | [LISTENING] Server listening...")
             while True:
-                try:
-                    conn, _ = server.accept()
-                    msg = readMessage(conn)
-                    conn.close()
-                    msgSplit = msg.split("\n")
-                    if msgSplit[0] == s.serverCommand[3]:
-                        print(msgSplit[-1])
-                    elif msgSplit[0] == s.serverCommand[4]:
-                        jobman.searchForFilesNow()
-                    elif msgSplit[0] == s.serverCommand[5]:
-                        os.system("cls")
-                    else:
-                        jobs.append(msg)
-                except:
-                    traceback.print_exc()
-                    print(f"{now()} | [REBOOT] Restarting server due to error...")
-                    break
+                conn, _ = server.accept()
+                msg = readMessage(conn)  # TODO: Check if the msg contains any non string character
+                conn.close()
+                msgSplit = msg.split("\n")
+                if msgSplit[0] == s.serverCommand[3]:
+                    print(msgSplit[-1])
+                elif msgSplit[0] == s.serverCommand[4]:
+                    pass
+                    # jobman.searchForFilesNow()
+                elif msgSplit[0] == s.serverCommand[5]:
+                    os.system("cls")
+                else:
+                    jobs.append(msg)
         except KeyboardInterrupt:
             break
+        except:
+            traceback.print_exc()
+            print(f"{now()} | [REBOOT] Restarting server due to error...")
 
 if __name__ == "__main__":
     start()

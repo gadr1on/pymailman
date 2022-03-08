@@ -4,9 +4,8 @@ from pathlib import Path
 from configparser import ConfigParser
 from sys import platform
 
-if platform == "linux" or platform == "linux2":
-    clear = "clear"
-elif platform == "win32":
+clear = "clear"
+if platform == "win32":
     clear = "cls"
 
 # Current working directory
