@@ -77,9 +77,7 @@ class JobRunner:
     
     def save_commands(self):
         content = '\n'.join(self.content)
-        # history = readHistory(s.jobsHistoryPath, splitLines=False)
-        # if not (content in history):
-        message = "{} | {}\n{}\n{}".format(now(), self.selection, content, s.jobsHistorySep)
+        message = "{} | {}\n{}\n{}".format(now(), self.selection, content, separator)
         makeHistory("jobsHistory" ,s.jobsHistoryPath, message, "%(message)s")
     
     def read_history(self):
