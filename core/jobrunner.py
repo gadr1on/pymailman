@@ -77,6 +77,7 @@ class JobRunner:
     
     def save_commands(self):
         content = '\n'.join(self.content)
+        separator = "-+-"*20
         message = "{} | {}\n{}\n{}".format(now(), self.selection, content, separator)
         makeHistory("jobsHistory" ,s.jobsHistoryPath, message, "%(message)s")
     
