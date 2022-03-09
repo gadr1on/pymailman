@@ -10,13 +10,19 @@ class Selection(object):
         self.input = None
         self.value = None
 
+"""
+class MemuManger:
 
+    Menu display for lists inside the pymailman program.
+    For example: Every time a list of files needs to be displayed
+    for selection, this class will provide the menu.
+"""
 class MenuManager:
 
     def __init__(self, title=None, menu=None):
         if title: self.set_title(title)
         if menu: self.set_menu(menu)
-        self.page = 0
+        self.page = 0 # page number starts in first page by default
         self.search = True
         self.commands_name = None
         self.marked = []
@@ -68,6 +74,7 @@ class MenuManager:
         return menu
     
     def sort_list(self):
+        """Sorts list in alphabetical order"""
         sort_func = lambda x: ord(x[0].lower())
         if self.menuHasCols:
             sort_func = lambda x: ord(x[0][0].lower())
@@ -86,9 +93,14 @@ class MenuManager:
             self.set_menu_2D()
         
     def get_selection(self):
+        """Returns the selection made by the user"""
         return self.selection
 
     def pages_print(self, pages, spacing=2):
+        """
+        Print current page from list with info about current page
+        number and the total number of pages at the bottom.
+        """
         message = "Select one option:"
         print(f"{message:>{spacing}}\n")
         for i in range(len(pages[self.page])):
@@ -99,6 +111,7 @@ class MenuManager:
         print(f"\n{self.page+1}/{len(pages)}")
 
     def search_keyword(self, keyword, menu):
+        """Search for keyword in menu list"""
         found = [ f for f in menu if (keyword in f[1].lower())]
         if found:
             return self.menu_pages(found, s.menuGroup)
