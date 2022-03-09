@@ -40,7 +40,7 @@ class JobRunner:
                 display = [f" {c}" if (len(c) and c[0]=="[") else f"  {c}" for c in display]
                 print("\n".join(display))
             self.set_commands_inputs()
-        self.save_commands()
+        # self.save_commands()
         content = [s.serverCommand[2], self.selection] + self.content
         content = "\n".join(content)
         send(content)
