@@ -88,8 +88,8 @@ if not isfile(configFile):
 configur.read(configFile)
 username = configur.get("mailmanager_settings", "username") 
 password = configur.get("mailmanager_settings", "password") 
-maildatStartID = configur.get("mailmanager_settings", "maildat_startID ") 
-maildatEndID = configur.get("mailmanager_settings", "maildat_endID ") 
+maildatStartID = configur.get("mailmanager_settings", "maildat_startID") 
+maildatEndID = configur.get("mailmanager_settings", "maildat_endID") 
 jobmanWait = configur.getint("jobmanager_settings", "wait")*60 # Waiting time for each execution
 jobmanActive = configur.getboolean("jobmanager_settings", "active")
 bccmainPath = configur.get("paths", "mailmanager_path") 
