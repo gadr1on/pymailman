@@ -130,7 +130,7 @@ if not isdir(bccmainPath):
 if not isdir(maildatSettings):
     maildatSettings = join(settingsPath, "MailDat")
 if not isdir(jobsPath):
-    jobsPath = join(jobsPath, "Jobs")
+    jobsPath = join(bccmainPath, "Jobs")
 # if (len(maildatStartID) > 0) and (len(maildatStartID) <= maildatIDLength) and \
 #    (len(maildatEndID) > 0) and (len(maildatEndID) <= maildatIDLength):
 #     startNumber = re.findall(r"\d+", maildatStartID)
