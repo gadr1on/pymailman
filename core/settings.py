@@ -34,11 +34,6 @@ serverCommand = {
     5 : "CLEAR_SCREEN"
 }
 
-# Server info
-HEADER = 2048
-SERVER = socket.gethostbyname(socket.gethostname())
-FORMAT = "utf-8"
-
 # BCC File extensions
 jobExt = ".mjb" # Jobs file extension
 tempExt = ".mwt" # Templates file extension
