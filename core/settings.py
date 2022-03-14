@@ -1,17 +1,11 @@
-from os.path import join
-import socket
+from os.path import join, isdir, isfile
+import socket, re
 from pathlib import Path
 from configparser import ConfigParser
-from sys import platform
 
 ###########################################
 #                SETTINGS                 #
 ###########################################
-
-# Chose clear command based on OS
-clear = "clear"
-if platform == "win32":
-    clear = "cls"
 
 # Default
 masterFilename = "pymailman"
@@ -52,6 +46,11 @@ listExt = ".dbf" # Lists file extension and other database files
 pdrExt = ".pdr" # TODO: Search name of ext 
 mdsExt = ".mds" # Maildat Settings file extension
 
+# # JobManager Settings
+# logLimit = 1000
+# pendingStr = "AddrPending"
+# standardStr = "AddrStandardized"
+
 ###########################################
 #                 PATHS                   #
 ###########################################
@@ -61,26 +60,48 @@ MAIN = Path(__file__).parents[1]
 
 # Configuration
 configur = ConfigParser()
-configur.read(join(MAIN, "config.ini"))
-bccmainPath = configur.get("mailmanager", "bccpath") 
-username = configur.get("mailmanager", "username") 
-password = configur.get("mailmanager", "password") 
-jobmanWait = configur.getint("jobmanager", "wait")*60 # Waiting time for each execution
-jobmanActive = configur.getboolean("jobmanager", "active")
+configFile = join(MAIN, "config.ini")
+# Create config file if doesnt exist
+if not isfile(configFile):
+    # Defining sections and their key and value pairs
+    configur["mailmanager_settings"] = {
+        "username" : "ADMIN",
+        "password" : "ADMIN",
+        "maildat_startID" : "00000000",
+        "maildat_endID" : "99999999"
+    }
+    configur["jobmanager_settings"] = {
+        "active" : "False",
+        "wait" : "60"
+    }
+    configur["paths"] = {
+        "mailmanager_path" : "",
+        "jobs_path" : "",
+        "maildatsettings_path" : ""
+    }
 
-# # JobManager Settings
-# logLimit = 1000
-# pendingStr = "AddrPending"
-# standardStr = "AddrStandardized"
+    # Savin config file
+    with open(configFile, "w") as file:
+        configur.write(file)
+
+# Reding config file and setting variables
+configur.read(configFile)
+username = configur.get("mailmanager_settings", "username") 
+password = configur.get("mailmanager_settings", "password") 
+maildatStartID = configur.get("mailmanager_settings", "maildat_startID ") 
+maildatEndID = configur.get("mailmanager_settings", "maildat_endID ") 
+jobmanWait = configur.getint("jobmanager_settings", "wait")*60 # Waiting time for each execution
+jobmanActive = configur.getboolean("jobmanager_settings", "active")
+bccmainPath = configur.get("paths", "mailmanager_path") 
+maildatSettings = configur.get("paths", "maildatsettings_path") 
+jobsPath = configur.get("paths", "jobs_path") 
 
 # BCC MailManager default paths
 mailmanPath = join(bccmainPath, "MailMan.exe")
 mailmanStubPath = join(bccmainPath, "MailManStub.exe")
-jobsPath = join(bccmainPath, "Jobs")
 templPath =  join(bccmainPath, "Templates")
 maildatPath = join(bccmainPath, "MailDat")
 settingsPath = join(bccmainPath, "Settings")
-maildatSettings = join(settingsPath, "MailDat")
 presortTablesPath = join(bccmainPath, "Presort Tables")
 dataFilesPath = join(bccmainPath, "Data Files")
 
@@ -103,5 +124,18 @@ myPortPath = join(mysettingsPath, "socket", "PORT")
 myCommandOptionsPath = join(mysettingsPath, "command_options.json")
 myCommandRequiredPath = join(mysettingsPath, "command_required.json")
 
-
-
+# Check every path exist and set defaults
+if not isdir(bccmainPath):
+    raise FileNotFoundError(f"{bccmainPath} directory not found...")
+if not isdir(maildatSettings):
+    maildatSettings = join(settingsPath, "MailDat")
+if not isdir(jobsPath):
+    jobsPath = join(jobsPath, "Jobs")
+# if (len(maildatStartID) > 0) and (len(maildatStartID) <= maildatIDLength) and \
+#    (len(maildatEndID) > 0) and (len(maildatEndID) <= maildatIDLength):
+#     startNumber = re.findall(r"\d+", maildatStartID)
+#     startNumber = int(startNumber[0]) if len(startNumber) else 0
+#     endNumber = re.findall(r"\d+", maildatEndID)
+#     endNumber = int(endNumber[0]) if len(endNumber) else 0
+#     if startNumber < endNumber:
+#         

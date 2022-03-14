@@ -119,7 +119,7 @@ class MenuManager:
     
     def cls(self):
         print("\n"*100)
-        os.system(s.clear)
+        os.system("cls")
     
     def show_menu(self):
         done = False

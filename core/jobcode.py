@@ -215,13 +215,11 @@ class JobCode:
         writeFile(join(s.maildatSettings, f"{setting}{s.mdsExt}"), "\n".join(maildatSetCommands))
         return f'"{setting}"'
 
-    '''
-    get_command_input function
-        Where all the magic happens. This function manages the commands
-        in the job (.mjb file) and asks inputs from the user in commands
-        containing the ? sign.
-    '''
     def get_command_input(self):
+        """
+        This function manages the commands in the job (.mjb file)
+        and asks inputs from the user in commands containing the ? sign.
+        """
         myinput = None
         # [COMMANDLINE]
         if self.cline.command == "COMMANDLINE":
