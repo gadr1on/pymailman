@@ -32,7 +32,7 @@ class JobRunner:
     def start(self):
         self.finished = False
         while not self.finished:
-            os.system(s.clear)
+            os.system("cls")
             print(self.selection)
             print(len(self.selection)*"-")
             if self.track:
