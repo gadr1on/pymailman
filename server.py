@@ -6,7 +6,7 @@ from time import sleep
 from core.tools import *
 
 jobs = []
-# jobman = JobManager()
+# jobman = JobManager("cls")
 
 def getGeneral():
     with open(s.myGeneralJobPath, "r") as file:
@@ -97,21 +97,22 @@ def start():
                 conn, _ = server.accept()
                 msg = readMessage(conn)  # TODO: Check if the msg contains any non string character
                 conn.close()
-                msgSplit = msg.split("\n")
-                if msgSplit[0] == s.serverCommand[3]:
-                    print(msgSplit[-1])
-                elif msgSplit[0] == s.serverCommand[4]:
-                    pass
-                    # jobman.searchForFilesNow()
-                elif msgSplit[0] == s.serverCommand[5]:
-                    os.system("cls")
-                else:
-                    jobs.append(msg)
+                if type(msg) == str:
+                    msgSplit = msg.split("\n")
+                    if msgSplit[0] == s.serverCommand[3]:
+                        print(msgSplit[-1])
+                    elif msgSplit[0] == s.serverCommand[4]:
+                        pass
+                        # jobman.searchForFilesNow()
+                    elif msgSplit[0] == s.serverCommand[5]:
+                        os.system("cls")
+                    else:
+                        jobs.append(msg)
         except KeyboardInterrupt:
             break
         except:
             traceback.print_exc()
-            print(f"{now()} | [REBOOT] Restarting server due to error...")
+            print(f"{now()} | [REBOOT] Restarting server...")
 
 if __name__ == "__main__":
     start()
