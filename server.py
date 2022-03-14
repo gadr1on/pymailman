@@ -12,6 +12,8 @@ def getAddress():
     with open(s.myPortPath, "r") as f:
         PORT = f.read().strip()
     PORT = int(PORT) if len(PORT) else 2525
+    if len(str(PORT + 1)) > 4:
+        PORT = 2525
     validPort = False
     while not validPort:
         server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -98,8 +100,10 @@ def readMessage(conn):
 def start():
     thread1 = threading.Thread(target=runJobsInQueue)
     thread1.start()
-    # thread2 = threading.Thread(target=jobman.runJobManager)
-    # thread2.start()
+    if s.jobmanActive:
+        pass
+        # thread2 = threading.Thread(target=jobman.runJobManager)
+        # thread2.start()
     
     while True:
         try:
