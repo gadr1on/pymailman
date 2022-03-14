@@ -114,8 +114,6 @@ masterLog = join(jobsPath, f"{masterFilename}.log")
 
 # Data Paths
 mysettingsPath = join(MAIN, "settings")
-myPortPath = join(mysettingsPath, "socket", "PORT")
-if not isfile(myPortPath): _ = open(myPortPath, "w")
 myCommandOptionsPath = join(mysettingsPath, "command_options.json")
 myCommandRequiredPath = join(mysettingsPath, "command_required.json")
 

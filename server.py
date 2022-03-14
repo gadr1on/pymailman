@@ -8,28 +8,9 @@ from core.tools import *
 jobs = []
 # jobman = JobManager()
 
-def getAddress():
-    with open(s.myPortPath, "r") as f:
-        PORT = f.read().strip()
-    PORT = int(PORT) if len(PORT) else 2525
-    if len(str(PORT + 1)) > 4:
-        PORT = 2525
-    validPort = False
-    while not validPort:
-        server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        if not server.connect_ex((s.SERVER, PORT)):
-            PORT += 1
-            continue
-        validPort = True
-    with open(s.myPortPath, "w") as f:
-        f.write(str(PORT))
-    return (s.SERVER, PORT)
-
-
 def getGeneral():
     with open(s.myGeneralJobPath, "r") as file:
         return list(map(lambda x: x.strip(), file.readlines()))
-
 
 def codeMeaning(jobName, problem):
     if (not problem) or (problem == 131072):
@@ -91,10 +72,10 @@ def runJobsInQueue():
 
 def readMessage(conn):
     msg = None
-    msg_length = conn.recv(s.HEADER).decode(s.FORMAT)
+    msg_length = conn.recv(2048).decode("utf-8")
     if msg_length:
         msg_length = int(msg_length)
-        msg = conn.recv(msg_length).decode(s.FORMAT)
+        msg = conn.recv(msg_length).decode("utf-8")
     return msg
 
 def start():
@@ -108,7 +89,8 @@ def start():
     while True:
         try:
             server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            server.bind(getAddress())
+            hostname = socket.gethostbyname(socket.gethostname())
+            server.bind((hostname, 0))
             server.listen(20)
             print(f"{now()} | [LISTENING] Server listening...")
             while True:
